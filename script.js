@@ -24,8 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', function(e) {
             if (window.innerWidth <= 900) {
-                e.preventDefault();
-                this.parentElement.classList.toggle('dropdown-open');
+                const dropdownMenu = this.parentElement.querySelector('.dropdown-menu');
+                // Only prevent default if there's actually a dropdown menu
+                if (dropdownMenu) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('dropdown-open');
+                }
             }
         });
     });
