@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - Geospatial Cognition Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #FAF9F6;
+            --bg-secondary: #E8E8E6;
+            --text-main: #3a3a35;
+            --text-secondary: #4a4a2d;
+            --accent: #C25A2E;
+            --olive: #4a4a2d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .splash-container {
+            max-width: 500px;
+        }
+        
+        .splash-logo {
+            width: 280px;
+            height: auto;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            font-family: 'Fjalla One', sans-serif;
+            font-size: 2.5rem;
+            color: var(--olive);
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .fun-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--bg-main);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .fun-text span {
+            display: block;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .contact-link:hover {
+            background-color: var(--accent);
+            color: var(--bg-main);
+        }
+        
+        .map-pin {
+            font-size: 1.5rem;
+            display: inline-block;
+            animation: bounce 1s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-container">
+        <img src="images/logo-square.png" alt="Geospatial Cognition Lab" class="splash-logo">
+        
+        <h1>We're Finding Our Way <span class="map-pin">📍</span></h1>
+        
+        <p class="tagline">Our new website is under construction.<br>We promise we know where we're going. Mostly.</p>
+        
+        <div class="fun-text">
+            Plot twist: even geospatial cognition researchers need a moment to navigate their own website redesign.
+            <span>Check back soon, we're almost there!</span>
+        </div>
+        
+        <a href="mailto:info@geospatialcognitionlab.edu" class="contact-link">Drop Us a Pin</a>
+        
+        <footer>
+            <p>&copy; 2026 Geospatial Cognition Lab, Oklahoma State University</p>
+        </footer>
+    </div>
+</body>
+</html>
