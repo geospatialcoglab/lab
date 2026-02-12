@@ -2,14 +2,6 @@
 
 A clean, professional academic research lab website built for GitHub Pages.
 
-## Features
-
-- Responsive design that works on all devices
-- Custom color scheme matching lab branding
-- Five main pages: Home, About, People, Publications, and News
-- Easy to customize and maintain
-- No build process required - pure HTML/CSS
-
 ## Color Scheme
 
 - Main Background: #FAF9F6 (Off-White)
