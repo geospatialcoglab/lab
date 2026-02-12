@@ -653,6 +653,18 @@ button:focus-visible {
     line-height: 1.7;
 }
 
+.about-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto 2.5rem;
+}
+
+.about-two-col .content-block {
+    margin: 0;
+}
+
 .content-block {
     max-width: 800px;
     margin: 0 auto 2.5rem;
@@ -1025,6 +1037,10 @@ button:focus-visible {
         text-align: center;
     }
     
+    .about-two-col {
+        grid-template-columns: 1fr;
+    }
+
     .research-grid {
         grid-template-columns: 1fr;
     }
