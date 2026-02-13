@@ -239,7 +239,6 @@ button:focus-visible {
     padding: 0.75rem 0;
     text-align: center;
     position: relative;
-    margin-top: -1px; /* Prevent gap between navbar and hero */
 }
 
 .hero::before {
@@ -971,16 +970,18 @@ button:focus-visible {
         right: 0;
         background-color: var(--bg-secondary);
         flex-direction: column;
-        padding: 1rem;
+        padding: 0;
         gap: 0;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s;
-        border-bottom: 3px solid var(--accent);
+        border-bottom: none;
     }
     
     .nav-menu.nav-open {
         max-height: 500px;
+        padding: 1rem;
+        border-bottom: 3px solid var(--accent);
     }
     
     .nav-menu > li {
@@ -1024,9 +1025,18 @@ button:focus-visible {
         padding: 0;
     }
     
+    .hero .container {
+        padding: 0;
+    }
+    
     .hero-logo {
-        max-width: 450px;
+        max-width: 100%;
+        width: 100%;
         display: block;
+    }
+    
+    .page-header {
+        padding: 1.5rem 0;
     }
     
     .hero h1 {
