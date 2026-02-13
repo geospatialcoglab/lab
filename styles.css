@@ -20,6 +20,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     font-family: 'Nunito Sans', 'Avenir', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-warm);
