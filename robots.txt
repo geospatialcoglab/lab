@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://geospatialcognitionlab.com/sitemap.xml
