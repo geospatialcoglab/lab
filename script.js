@@ -3,22 +3,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
-    if (navToggle) {
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('nav-open');
-            navToggle.classList.toggle('nav-open');
-        });
-    }
+    if (!navToggle || !navMenu) return;
+    
+    navToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('nav-open');
+        navToggle.classList.toggle('nav-open');
+    });
     
     // Close mobile menu when clicking a link (but not dropdown parents)
     const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
             // Don't close menu if this is a dropdown parent on mobile
-            const isDropdownParent = this.parentElement.classList.contains('nav-dropdown') && 
-                                     this.parentElement.querySelector('.dropdown-menu');
-            if (window.innerWidth <= 900 && isDropdownParent) {
-                return; // Let the dropdown handler deal with it
+            var parent = this.parentElement;
+            if (parent && parent.classList.contains('nav-dropdown')) {
+                var hasDropdown = parent.querySelector('.dropdown-menu');
+                if (window.innerWidth <= 900 && hasDropdown) {
+                    return; // Let the dropdown handler deal with it
+                }
             }
             navMenu.classList.remove('nav-open');
             navToggle.classList.remove('nav-open');
@@ -26,15 +28,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Handle dropdowns on mobile
-    const dropdowns = document.querySelectorAll('.nav-dropdown > a');
-    dropdowns.forEach(dropdown => {
+    var dropdowns = document.querySelectorAll('.nav-dropdown > a');
+    dropdowns.forEach(function(dropdown) {
         dropdown.addEventListener('click', function(e) {
             if (window.innerWidth <= 900) {
-                const dropdownMenu = this.parentElement.querySelector('.dropdown-menu');
-                // Only prevent default if there's actually a dropdown menu
-                if (dropdownMenu) {
-                    e.preventDefault();
-                    this.parentElement.classList.toggle('dropdown-open');
+                var parent = this.parentElement;
+                if (parent) {
+                    var dropdownMenu = parent.querySelector('.dropdown-menu');
+                    // Only prevent default if there's actually a dropdown menu
+                    if (dropdownMenu) {
+                        e.preventDefault();
+                        parent.classList.toggle('dropdown-open');
+                    }
                 }
             }
         });
