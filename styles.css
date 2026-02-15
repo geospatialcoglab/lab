@@ -248,7 +248,7 @@ button:focus-visible {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('images/topo-overlay.jpg');
+    background-image: url('images/topo-overlay.png');
     background-size: cover;
     background-position: center;
     opacity: 0.15;
@@ -503,7 +503,7 @@ button:focus-visible {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('images/topo-overlay.jpg');
+    background-image: url('images/topo-overlay.png');
     background-size: cover;
     background-position: center;
     opacity: 0.12;
@@ -615,7 +615,7 @@ button:focus-visible {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('images/topo-overlay.jpg');
+    background-image: url('images/topo-overlay.png');
     background-size: cover;
     background-position: center;
     opacity: 0.15;
