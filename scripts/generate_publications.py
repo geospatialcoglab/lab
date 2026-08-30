@@ -283,6 +283,12 @@ _UNDATED_HEADING = "Undated"
 # automatically get the same treatment with no manual editing.
 HIGHLIGHT_AUTHOR = "McWhorter"
 
+# Decorative arrow at the tail of a visible link label ("DOI →"). It is stripped
+# out of the accessible name so a screen reader announces "DOI, opens in a new
+# tab" instead of reading the glyph.
+_LINK_ARROW = "\u2192"
+_NEW_TAB_SUFFIX = "opens in a new tab"
+
 
 def _escape_text(value: str) -> str:
     """Escape &, <, > for use as element text content (quotes left as-is)."""
@@ -317,12 +323,43 @@ def _highlight_author(escaped_authors: str, surname: str) -> str:
     return re.sub(pattern, lambda m: f"<strong>{m.group(0)}</strong>", escaped_authors)
 
 
+def _new_tab_aria_label(link_label: str) -> str:
+    """Derive the `.pub-link` aria-label announcing that the link opens a new tab.
+
+    Pure and total. The visible label carries a decorative trailing arrow
+    (U+2192, e.g. ``"DOI →"``) that would be read out by a screen reader, so it
+    is stripped along with the surrounding whitespace before the announcement is
+    appended:
+
+        "DOI →"  -> "DOI, opens in a new tab"
+        "Link →" -> "Link, opens in a new tab"
+        "DOI"    -> "DOI, opens in a new tab"   (no arrow: handled gracefully)
+
+    A label that is empty (or arrow-only) yields just ``"opens in a new tab"``.
+    The result is plain text; callers must ``_escape_attr()`` it before emitting.
+    """
+    text = (link_label or "").strip()
+    if text.endswith(_LINK_ARROW):
+        text = text[: -len(_LINK_ARROW)].strip()
+    return f"{text}, {_NEW_TAB_SUFFIX}" if text else _NEW_TAB_SUFFIX
+
+
 def _render_publication(pub: Publication, highlight_author: str = HIGHLIGHT_AUTHOR) -> str:
     """Render a single `.publication` block (20-space indented, trailing newline).
 
-    Text fields (authors, title, link_label) are HTML-escaped; the href is
-    attribute-escaped; ``venue`` is emitted verbatim because it is trusted
-    internal HTML that may contain intentional <em> markup.
+    Text fields (authors, title, link_label) are HTML-escaped; the href and the
+    aria-label are attribute-escaped; ``venue`` is emitted verbatim because it is
+    trusted internal HTML that may contain intentional <em> markup.
+
+    The link is an outbound citation, so it opens in a new tab with
+    ``target="_blank"`` plus ``rel="noopener noreferrer"``: ``noopener`` denies
+    the opened page any handle on this one (tab-nabbing), ``noreferrer`` keeps
+    the referrer from leaking. Because the visible label alone would not tell a
+    screen-reader user about the new tab, an ``aria-label`` derived from
+    ``link_label`` (arrow stripped) announces it.
+
+    Attribute order is fixed -- href, class, target, rel, aria-label -- to keep
+    the output byte-stable.
 
     ``highlight_author`` (default ``HIGHLIGHT_AUTHOR``) is applied to the
     authors field only, AFTER escaping; pass ``""`` to disable bolding.
@@ -330,12 +367,15 @@ def _render_publication(pub: Publication, highlight_author: str = HIGHLIGHT_AUTH
     i2 = _BASE_INDENT + " " * 4   # 20 spaces: .publication
     i3 = _BASE_INDENT + " " * 8   # 24 spaces: inner <p>/<a>
     authors = _highlight_author(_escape_text(pub.authors), highlight_author)
+    aria_label = _escape_attr(_new_tab_aria_label(pub.link_label))
     lines = [
         f'{i2}<div class="publication">',
         f'{i3}<p class="pub-authors">{authors}</p>',
         f'{i3}<p class="pub-title">{_escape_text(pub.title)}</p>',
         f'{i3}<p class="pub-venue">{pub.venue}</p>',
-        f'{i3}<a href="{_escape_attr(pub.link)}" class="pub-link">{_escape_text(pub.link_label)}</a>',
+        f'{i3}<a href="{_escape_attr(pub.link)}" class="pub-link"'
+        f' target="_blank" rel="noopener noreferrer"'
+        f' aria-label="{aria_label}">{_escape_text(pub.link_label)}</a>',
         f"{i2}</div>",
     ]
     return "\n".join(lines) + "\n"
