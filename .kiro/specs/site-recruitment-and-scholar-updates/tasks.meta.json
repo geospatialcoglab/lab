@@ -1,0 +1,404 @@
+{
+  "pbtResults": {
+    "5.1 Property test: rendering determinism / idempotent regeneration": {
+      "status": "passed",
+      "lastRunTimestamp": 1788110811056
+    },
+    "5.2 Property test: structure preservation under injection": {
+      "status": "passed",
+      "lastRunTimestamp": 1788110812009
+    },
+    "5.3 Property test: deterministic ordering": {
+      "status": "passed",
+      "lastRunTimestamp": 1788110813406
+    },
+    "5.4 Property test: total normalization and defined link output": {
+      "status": "passed",
+      "lastRunTimestamp": 1788110814371
+    },
+    "5.5 Property test: threshold boundary": {
+      "status": "passed",
+      "lastRunTimestamp": 1788110815753
+    },
+    "5.6 Test: non-destructiveness under failure": {
+      "status": "passed",
+      "lastRunTimestamp": 1788110816703
+    },
+    "5.8 Property test: curated-entry preservation and deduplication": {
+      "status": "passed",
+      "lastRunTimestamp": 1788110817831
+    }
+  },
+  "executionHistory": {
+    "1.1 Insert the recruitment article as the topmost news item": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165145
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109176742
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109613692
+      }
+    ],
+    "2.1 Update `index.html` `.news-preview`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165206
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109447170
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109615209
+      }
+    ],
+    "3.1 Insert the publication sentinels": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165225
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109178132
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109435856
+      }
+    ],
+    "4.1 Define the `Publication` model and `normalize()`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165248
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109179040
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109438047
+      }
+    ],
+    "4.2 Implement `render_list()`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165268
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109448033
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109616083
+      }
+    ],
+    "4.3 Implement `inject()`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165286
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109646057
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109802751
+      }
+    ],
+    "4.4 Implement `check_threshold()`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165307
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109803795
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109871056
+      }
+    ],
+    "4.5 Implement the fetch layer and CLI wiring": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165326
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110228393
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110466174
+      }
+    ],
+    "4.6 Add curated publications source and merge/dedupe": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165351
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109871776
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110227638
+      }
+    ],
+    "6. Checkpoint - generator core and tests": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165370
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110857223
+      }
+    ],
+    "7.1 Add `requirements.txt` pinning `scholarly`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165389
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109180058
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109437263
+      }
+    ],
+    "8.1 Create `.github/workflows/sync-publications.yml`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165407
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110861477
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110949767
+      }
+    ],
+    "9. Final checkpoint - sync pipeline": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109165425
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110950822
+      }
+    ],
+    "3. Prepare `publications.html` for marker-based injection": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109435886
+      }
+    ],
+    "7. Pin the sync dependency": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109437289
+      }
+    ],
+    "1. Author the PhD recruitment announcement on `news.html`": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109613717
+      }
+    ],
+    "2. Mirror the announcement in the homepage Recent News preview": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788109615235
+      }
+    ],
+    "4. Implement the Generator_Script pure core (`scripts/generate_publications.py`)": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110466197
+      }
+    ],
+    "5.1 Property test: rendering determinism / idempotent regeneration": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110470600
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110847622
+      }
+    ],
+    "5.2 Property test: structure preservation under injection": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110472044
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110849132
+      }
+    ],
+    "5.3 Property test: deterministic ordering": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110472933
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110849948
+      }
+    ],
+    "5.4 Property test: total normalization and defined link output": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110474350
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110851332
+      }
+    ],
+    "5.5 Property test: threshold boundary": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110475736
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110852298
+      }
+    ],
+    "5.6 Test: non-destructiveness under failure": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110476756
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110853718
+      }
+    ],
+    "5.7 Test: fetch retry and empty-result handling (mocked)": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110478096
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110855122
+      }
+    ],
+    "5.8 Property test: curated-entry preservation and deduplication": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110479122
+      },
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110856170
+      }
+    ],
+    "5. Test the Generator_Script (`pytest`, `scholarly` mocked)": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110847645
+      }
+    ],
+    "8. Wire up the Sync_Workflow": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110949794
+      }
+    ],
+    "1.2 Validate `news.html` well-formedness and links": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110991142
+      }
+    ],
+    "2.2 Validate `index.html` well-formedness": [
+      {
+        "executionId": "a9ced461-6ae8-44be-a7d1-c5361dea3b6c",
+        "chatSessionId": "sess_90d54ebb-11e4-4118-b761-11dbd27bc7d0",
+        "timestamp": 1788110992126
+      }
+    ]
+  }
+}

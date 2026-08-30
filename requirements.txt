@@ -1,0 +1,11 @@
+# Dependencies for the publications sync workflow (.github/workflows/sync-publications.yml)
+# Versions are pinned exactly for reproducible installs in GitHub Actions.
+
+# Runtime dependency: used by scripts/generate_publications.py to fetch the
+# lab's publications from the Google Scholar profile during the scheduled sync.
+scholarly==1.7.11
+
+# Dev/test dependencies: used only to run the Generator_Script test suite
+# (scholarly is always mocked in tests). Not required by the workflow's fetch step.
+pytest==8.4.2
+hypothesis==6.141.1

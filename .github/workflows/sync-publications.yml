@@ -1,0 +1,90 @@
+name: Sync publications from Google Scholar
+
+# Automatically refreshes publications.html from the lab's Google Scholar
+# profile. Runs on a monthly schedule and can be triggered manually.
+#
+# Review-gated flow: this workflow NEVER commits to the default branch
+# directly. When the generator succeeds AND produces a real change to
+# publications.html, it pushes that change to a dedicated sync branch and
+# opens (or updates) a pull request for maintainer review. Nothing is
+# published until a maintainer merges that PR. Every failure path — retrieval
+# failure, below-threshold, missing sentinel, io/write error — exits non-zero
+# and proposes nothing, leaving publications.html byte-for-byte untouched.
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"    # 1st of each month, 00:00 UTC (Req 4.1)
+  workflow_dispatch: {}     # manual, on-demand run (Req 4.2)
+
+# Queue overlapping runs instead of overlapping/cancelling them, so at most one
+# PR-proposing run is in flight at a time (Req 4.4).
+concurrency:
+  group: sync-publications
+  cancel-in-progress: false
+
+# The built-in GITHUB_TOKEN needs `contents: write` to push the sync branch and
+# `pull-requests: write` to open/update the review PR; no PAT/secret needed
+# (Req 3.8, 3.11, 3.12).
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    # Scheduled and manual triggers execute this identical job (Req 4.3).
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install runtime dependency
+        # Only scholarly is needed for the fetch. The pytest/hypothesis pins in
+        # requirements.txt are dev-only (scholarly is mocked in tests) and are
+        # intentionally skipped here to keep the sync job lean.
+        run: pip install scholarly==1.7.11
+
+      - name: Generate publications
+        # Defaults target repo-root publications.html and author id Xu5F1CAAAAAJ.
+        # A non-zero exit (retrieval failure, below-threshold, missing sentinel,
+        # or io/write error) fails this step and the job, so the PR step below
+        # never runs and no pull request is created (Req 3.9, 4.5, 5.3).
+        run: python scripts/generate_publications.py
+
+      - name: Open or update review pull request
+        # Runs only when the generate step succeeded (default `if: success()`).
+        # peter-evans/create-pull-request is idempotent: it pushes publications.html
+        # to the sync branch and opens a PR if none exists, or updates the existing
+        # one on later runs, and does nothing (no empty PR) when there is no diff
+        # (Req 3.5, 3.6, 4.3, 4.4, 4.5, 5.3).
+        uses: peter-evans/create-pull-request@v6
+        with:
+          # The built-in token is passed by default, but set it explicitly.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Dedicated sync branch, created/updated automatically.
+          branch: auto/publications-sync
+          # Target the default branch. If this repo's default branch is NOT
+          # "main" (e.g. "master"), change the value below to match.
+          base: main
+          commit-message: "chore: sync publications from Google Scholar"
+          title: "Automated Scholar publication sync"
+          body: |
+            This pull request was opened automatically by the monthly (or
+            manually triggered) Google Scholar publication sync.
+
+            It regenerates only `publications.html` from the lab's Scholar
+            profile. Please review the diff before merging — nothing is
+            published until this PR is merged into the default branch.
+
+            The two curated, hand-entered publications are preserved by the
+            generator and are not affected by this sync.
+          # Only include the publications file in the PR so nothing unrelated is
+          # swept in.
+          add-paths: publications.html
+          # Delete the sync branch after the PR is merged to keep things tidy.
+          delete-branch: true
