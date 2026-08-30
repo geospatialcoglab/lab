@@ -487,6 +487,17 @@ button:focus-visible {
     font-size: 1rem;
 }
 
+.news-item p a {
+    color: var(--bg-main);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.news-item p a:hover,
+.news-item p a:focus {
+    opacity: 0.75;
+}
+
 /* Footer */
 .footer {
     background-color: var(--olive-dark);
@@ -942,10 +953,32 @@ button:focus-visible {
     color: var(--text-main);
 }
 
+.news-article h3 {
+    text-align: left;
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+}
+
 .news-article p {
     font-size: 1.05rem;
     line-height: 1.7;
     color: var(--text-main);
+}
+
+.news-article p a,
+.news-article li a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.news-article p a:hover,
+.news-article p a:focus,
+.news-article li a:hover,
+.news-article li a:focus {
+    color: var(--accent-hover);
 }
 
 .news-image {
