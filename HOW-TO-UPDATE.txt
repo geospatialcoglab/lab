@@ -1,0 +1,229 @@
+================================================================================
+GEOSPATIAL COGNITION LAB WEBSITE - UPDATE GUIDE
+================================================================================
+
+Hey there, future you (or whoever's maintaining this)! Here's everything you 
+need to know to keep this site fresh.
+
+================================================================================
+📰 ADDING NEWS POSTS
+================================================================================
+
+1. Open: news.html
+2. Find the <div class="news-list"> section
+3. Copy this template and paste it at the TOP (newest first):
+
+   <article class="news-article">
+       <span class="news-date">Month Year</span>
+       <h2>Your Headline Here</h2>
+       <p>Your news content here. Keep it concise but informative!</p>
+   </article>
+
+4. To add a photo to a news post:
+
+   <article class="news-article">
+       <span class="news-date">Month Year</span>
+       <h2>Conference Presentation</h2>
+       <img src="images/your-photo.jpg" alt="Description of photo" class="news-image">
+       <p>Your news content here.</p>
+   </article>
+
+5. Don't forget to update the "Recent News" section on index.html too!
+   (Just the 2 most recent items)
+
+================================================================================
+📸 ADDING PHOTOS
+================================================================================
+
+PEOPLE PHOTOS:
+1. Save photo to: images/ folder
+2. Recommended size: 300x300px (square works best)
+3. In people.html, replace the placeholder div:
+
+   FROM:
+   <div class="person-photo-placeholder">
+       <span>Photo</span>
+   </div>
+
+   TO:
+   <img src="images/firstname-lastname.jpg" alt="First Last" class="person-photo">
+
+4. Add this CSS to styles.css (only need to do this once):
+
+   .person-photo {
+       width: 140px;
+       height: 140px;
+       border-radius: 50%;
+       object-fit: cover;
+       margin: 0 auto 1.5rem;
+       display: block;
+       border: 3px solid var(--accent);
+   }
+
+NEWS PHOTOS:
+- Already styled! Just use class="news-image"
+- Recommended: landscape orientation, max 800px wide
+
+PET PHOTOS:
+- Same as people photos, they're good bois and girls
+
+================================================================================
+🔗 LINKS TO UPDATE
+================================================================================
+
+SOCIAL MEDIA (in footer of ALL pages):
+Search for: aria-label="Instagram"
+           aria-label="GitHub"  
+           aria-label="Google Scholar"
+These are already configured with your links!
+
+FILES TO UPDATE:
+- index.html
+- about.html
+- people.html
+- publications.html
+- news.html
+- research.html
+- join.html
+- 404.html
+- coming-soon.html
+
+PROSPECTIVE STUDENT LINKS (join.html):
+- Graduate Program Info link
+- Funding Resources link
+- Department links in "Helpful Links" section
+
+CONTACT EMAIL:
+Search for: chelsie.mcwhorter@okstate.edu
+This is already set correctly in:
+- about.html
+- join.html
+Update in coming-soon.html if needed.
+
+================================================================================
+🌐 WHEN YOU'RE READY TO LAUNCH
+================================================================================
+
+1. UPDATE YOUR DOMAIN in sitemap.xml:
+   Replace "https://yourdomain.com" with your actual URL
+   (e.g., https://geospatialcognitionlab.github.io)
+
+2. CREATE A FAVICON:
+   - Make a 32x32 or 64x64 pixel version of your logo
+   - Save as: images/favicon.png
+   - Already referenced in all pages!
+
+3. SWITCH FROM COMING SOON:
+   - Option A: Rename coming-soon.html to something else, rename index.html
+   - Option B: Just share the index.html URL directly
+   - For GitHub Pages: index.html is automatically the homepage
+
+4. UPDATE OPEN GRAPH IMAGE:
+   In index.html, update this line with your full URL:
+   <meta property="og:image" content="images/logo-square.png">
+   TO:
+   <meta property="og:image" content="https://yourdomain.com/images/logo-square.png">
+
+================================================================================
+👥 ADDING NEW TEAM MEMBERS
+================================================================================
+
+1. Open: people.html
+2. Copy an existing person-card div
+3. Paste it in the grid
+4. Update: name, title, bio, photo, links
+
+For the PI card (slightly different styling):
+- Use class="person-card person-card-pi"
+
+For regular members:
+- Use class="person-card"
+
+ADDING PROFILE LINKS (Website, Scholar, LinkedIn, etc.):
+Inside each person-card, there's a person-links div. Add/remove links as needed:
+
+   <div class="person-links">
+       <a href="https://their-website.com" class="person-link">Website</a>
+       <a href="https://scholar.google.com/citations?user=THEIR_ID" class="person-link">Scholar</a>
+       <a href="https://linkedin.com/in/their-profile" class="person-link">LinkedIn</a>
+   </div>
+
+Common link types:
+- Personal website: Just use their URL
+- Google Scholar: https://scholar.google.com/citations?user=THEIR_USER_ID
+  (Find their ID by going to their Scholar profile - it's in the URL after "user=")
+- LinkedIn: https://linkedin.com/in/their-username
+- ORCID: https://orcid.org/their-orcid-id
+- ResearchGate: https://researchgate.net/profile/Their-Name
+
+You can have as many or as few links as needed per person. Just delete the 
+<a> tags you don't need.
+
+================================================================================
+📚 ADDING PUBLICATIONS
+================================================================================
+
+1. Open: publications.html
+2. Find the correct year section (or create a new one)
+3. Add a new publication:
+
+   <div class="publication">
+       <p class="pub-authors">Last, F., Last, F., & Last, F.</p>
+       <p class="pub-title">Your paper title here.</p>
+       <p class="pub-venue"><em>Journal Name</em>, Volume(Issue), Pages.</p>
+       <a href="https://doi.org/xxxxx" class="pub-link">DOI →</a>
+   </div>
+
+To add a new year section:
+   <div class="pub-year">
+       <h2>2027</h2>
+       <!-- publications go here -->
+   </div>
+
+================================================================================
+🐾 ADDING PETS
+================================================================================
+
+Same as people! They deserve equal representation.
+Located at the bottom of people.html in the "Pets of the GCL" section.
+
+================================================================================
+🆘 IF SOMETHING BREAKS
+================================================================================
+
+1. Check for missing closing tags (</div>, </section>, etc.)
+2. Make sure quotes are balanced in HTML attributes
+3. Clear your browser cache (Ctrl+Shift+R or Cmd+Shift+R)
+4. Check the browser console (F12) for error messages
+
+================================================================================
+FILE STRUCTURE REFERENCE
+================================================================================
+
+your-site/
+├── index.html          ← Homepage
+├── about.html          ← About Us
+├── research.html       ← Research projects
+├── join.html           ← Prospective students
+├── people.html         ← Team members + pets
+├── alumni.html         ← Former members (hidden for now)
+├── publications.html   ← Papers
+├── news.html           ← News/updates
+├── coming-soon.html    ← Splash page
+├── 404.html            ← Error page
+├── styles.css          ← All the styling
+├── script.js           ← Mobile menu functionality
+├── sitemap.xml         ← For Google
+├── images/
+│   ├── logo-horizontal.png
+│   ├── logo-square.png
+│   ├── favicon.png     ← (you need to create this)
+│   └── (your photos)
+└── HOW-TO-UPDATE.txt   ← You are here!
+
+================================================================================
+
+Happy updating! 🗺️
+- Your friendly neighborhood website
+
+================================================================================

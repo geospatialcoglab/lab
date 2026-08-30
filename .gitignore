@@ -1,0 +1,5 @@
+# Python artifacts from the publications sync tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.hypothesis/
