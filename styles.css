@@ -967,6 +967,18 @@ button:focus-visible {
     color: var(--text-main);
 }
 
+.news-article ul {
+    padding-left: 1.75rem;
+    margin: 0.5rem 0 1.25rem;
+}
+
+.news-article li {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-main);
+    margin-bottom: 0.4rem;
+}
+
 .news-article p a,
 .news-article li a {
     color: var(--accent);

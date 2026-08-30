@@ -274,6 +274,15 @@ import html
 _BASE_INDENT = " " * 16
 _UNDATED_HEADING = "Undated"
 
+# Surname of the lab PI, emphasized with <strong> in every rendered author list.
+#
+# Bolding is applied at RENDER time (not stored in curated_publications.json)
+# because the `authors` field is HTML-escaped by `_escape_text()` before it is
+# emitted, so a literal `<strong>` in the JSON would display as visible text.
+# Doing it here also means publications that a future Scholar sync adds
+# automatically get the same treatment with no manual editing.
+HIGHLIGHT_AUTHOR = "McWhorter"
+
 
 def _escape_text(value: str) -> str:
     """Escape &, <, > for use as element text content (quotes left as-is)."""
@@ -289,18 +298,41 @@ def _escape_attr(value: str) -> str:
     return html.escape(value, quote=True)
 
 
-def _render_publication(pub: Publication) -> str:
+def _highlight_author(escaped_authors: str, surname: str) -> str:
+    """Wrap whole-word occurrences of ``surname`` in ``<strong>`` (pure).
+
+    MUST be called on ALREADY-ESCAPED author text: escaping first and injecting
+    the markup afterwards is what keeps the output injection-safe, since any
+    ``&``/``<``/``>`` in the source string has already become an entity and the
+    only raw tags in the result are the ones added here.
+
+    Matching is case-sensitive and word-bounded (``\\bSurname\\b`` with
+    ``re.escape``), so "McWhorter, C." matches while a longer name containing
+    the surname as a substring does not. An empty or ``None`` surname disables
+    highlighting and returns the input unchanged.
+    """
+    if not surname:
+        return escaped_authors
+    pattern = r"\b" + re.escape(surname) + r"\b"
+    return re.sub(pattern, lambda m: f"<strong>{m.group(0)}</strong>", escaped_authors)
+
+
+def _render_publication(pub: Publication, highlight_author: str = HIGHLIGHT_AUTHOR) -> str:
     """Render a single `.publication` block (20-space indented, trailing newline).
 
     Text fields (authors, title, link_label) are HTML-escaped; the href is
     attribute-escaped; ``venue`` is emitted verbatim because it is trusted
     internal HTML that may contain intentional <em> markup.
+
+    ``highlight_author`` (default ``HIGHLIGHT_AUTHOR``) is applied to the
+    authors field only, AFTER escaping; pass ``""`` to disable bolding.
     """
     i2 = _BASE_INDENT + " " * 4   # 20 spaces: .publication
     i3 = _BASE_INDENT + " " * 8   # 24 spaces: inner <p>/<a>
+    authors = _highlight_author(_escape_text(pub.authors), highlight_author)
     lines = [
         f'{i2}<div class="publication">',
-        f'{i3}<p class="pub-authors">{_escape_text(pub.authors)}</p>',
+        f'{i3}<p class="pub-authors">{authors}</p>',
         f'{i3}<p class="pub-title">{_escape_text(pub.title)}</p>',
         f'{i3}<p class="pub-venue">{pub.venue}</p>',
         f'{i3}<a href="{_escape_attr(pub.link)}" class="pub-link">{_escape_text(pub.link_label)}</a>',
@@ -309,7 +341,9 @@ def _render_publication(pub: Publication) -> str:
     return "\n".join(lines) + "\n"
 
 
-def render_list(pubs: list[Publication]) -> str:
+def render_list(
+    pubs: list[Publication], highlight_author: str = HIGHLIGHT_AUTHOR
+) -> str:
     """Render publications into deterministic `.pub-year` -> `.publication` markup.
 
     Pure function: no I/O, no globals mutated, output depends only on ``pubs``.
@@ -327,6 +361,10 @@ def render_list(pubs: list[Publication]) -> str:
     Determinism (Req 3.5, 3.6): fixed indentation, fixed field order, stable
     sorts, and a single blank line separating year blocks make the output
     byte-stable for identical input. An empty list returns "".
+
+    ``highlight_author`` (default ``HIGHLIGHT_AUTHOR``) is the surname bolded in
+    every entry's author list, applied after escaping; ``""`` disables it. It is
+    part of the pure input, so determinism still holds for a fixed value.
     """
     if not pubs:
         return ""
@@ -350,7 +388,9 @@ def render_list(pubs: list[Publication]) -> str:
             f'{_BASE_INDENT}    <h2>{_escape_text(heading)}</h2>',
         ]
         block = "\n".join(block_lines) + "\n"
-        block += "".join(_render_publication(entry) for entry in entries)
+        block += "".join(
+            _render_publication(entry, highlight_author) for entry in entries
+        )
         block += f"{_BASE_INDENT}</div>\n"
         year_blocks.append(block)
 
@@ -998,6 +1038,12 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         help="Per-attempt overall timeout in seconds (default: %(default)s).",
     )
     parser.add_argument(
+        "--highlight-author",
+        default=HIGHLIGHT_AUTHOR,
+        help="Surname to wrap in <strong> in every rendered author list; pass an "
+        "empty string to disable bolding (default: %(default)s).",
+    )
+    parser.add_argument(
         "--curated-file",
         default=None,
         help="Path to the curated publications JSON (default: the packaged "
@@ -1055,7 +1101,7 @@ def main(argv=None) -> int:
     merged = merge(curated, scholar_pubs)
 
     # 5. Render the deterministic markup block.
-    rendered = render_list(merged)
+    rendered = render_list(merged, args.highlight_author)
 
     # 6. Read the current html file.
     html_path = Path(args.html_file)
