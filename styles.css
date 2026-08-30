@@ -965,6 +965,7 @@ button:focus-visible {
     font-size: 1.05rem;
     line-height: 1.7;
     color: var(--text-main);
+    margin-bottom: 1rem;
 }
 
 .news-article ul {
