@@ -5,12 +5,14 @@
 This feature adds three capabilities to the existing Geospatial Cognition Lab static website (plain HTML/CSS/JS, hosted on GitHub Pages):
 
 1. A short news announcement on `news.html` stating that the lab is recruiting a funded PhD student.
-2. An expanded news article on `news.html` presenting the full PhD recruitment call written by Dr. McWhorter (the announcement and the full call live in the same news item — no separate standalone page).
+2. An expanded news article on `news.html` presenting the full PhD recruitment call written by Dr. McWhorter (the announcement and the full call live in the same news item, with no separate standalone page).
 3. An automated pipeline that periodically pulls the lab's publications from the Google Scholar profile and regenerates the publications list on `publications.html`, keeping it updated as new work is published over time.
 
 A key technical constraint shapes requirement 3: Google Scholar provides no official public API and actively blocks automated scraping (CAPTCHAs, IP blocking). Because the site is static and served by GitHub Pages, a live client-side fetch from the browser is not feasible. Based on user decisions, the chosen approach is a **scheduled GitHub Actions workflow** that runs on a monthly cadence and can also be triggered manually on demand. Rather than committing directly to the live site, when the sync produces a change it proposes the update via a pull request that the maintainer reviews and merges, so nothing is published without review. When the sync fails, the previously committed (last good) `publications.html` is preserved and manual editing remains the accepted fallback.
 
-The recruitment call text has been supplied by the user. One detail — the full funding specifics beyond "guaranteed funding for the first two years" — is pending and is treated as a to-be-confirmed value in the content.
+The recruitment call text has been supplied by the user. The funding language is now final: the call states guaranteed funding for the first two years plus anticipated teaching-assistantship and externally funded support, and it carries no to-be-confirmed placeholder.
+
+Requirement 6 was added after the initial launch. It captures a cross-cutting concern that applies to every hand-authored page rather than to a single feature: outbound links must open in a new tab with a safe `rel` value, ampersands must be written as character entities so the markup is valid, and presented text must avoid em and en dashes.
 
 ## Glossary
 
@@ -23,6 +25,9 @@ The recruitment call text has been supplied by the user. One detail — the full
 - **Sync_Workflow**: The scheduled GitHub Actions workflow that fetches publications from the Scholar_Profile, regenerates the Publications_Page, and proposes any change via a Sync_Pull_Request rather than committing directly to the default branch.
 - **Sync_Pull_Request**: The pull request that the Sync_Workflow opens or updates, containing the regenerated Publications_Page on a dedicated sync branch, for maintainer review before merging into the default branch.
 - **Generator_Script**: The script invoked by the Sync_Workflow that transforms fetched publication data into the Publications_Page HTML markup.
+- **Curated_Publication**: One of the hand-authored publication records stored in `scripts/curated_publications.json`, merged into the regenerated Publications_Page so its hand-authored wording is preserved.
+- **Author_Emphasis**: The `<strong>` wrapping that the Generator_Script applies to whole-word occurrences of the configured highlighted author surname (default "McWhorter") within a rendered `.pub-authors` value.
+- **External_Link**: Any hyperlink on the Site whose destination resolves outside the geospatialcognitionlab.com domain. Internal and relative paths, `mailto:` addresses, and self-referential links to the lab domain are not External_Links.
 - **Last_Good_Version**: The most recently committed, successfully generated version of the Publications_Page prior to any failed sync attempt.
 - **Site_Style**: The existing shared markup and CSS conventions of the Site (`.navbar`, `.page-header`, `.section`/`.section-gray`, `.footer`, and the news/publication class patterns).
 
@@ -52,7 +57,7 @@ The recruitment call text has been supplied by the user. One detail — the full
 4. THE Recruitment_Announcement SHALL describe the program and lab context, including the multidisciplinary nature of FEMP, the in-residence graduate cohort in Stillwater, the network of remote MS and PhD students, and the live hybrid (in-person and Zoom) course format.
 5. THE Recruitment_Announcement SHALL list the qualifications and preferred skills, and SHALL state that a completed master's degree is required for admission.
 6. THE Recruitment_Announcement SHALL state that the position includes guaranteed funding for the first two years, with additional anticipated support through teaching assistantships and externally funded research projects.
-7. WHERE detailed funding specifics remain unconfirmed, THE Recruitment_Announcement SHALL present the confirmed funding statement using the "guaranteed funding for the first two years" language, AND SHALL enclose any unconfirmed specifics within a visible placeholder marker (bracketed text) that is visually distinguishable from surrounding confirmed content.
+7. THE Recruitment_Announcement SHALL present the funding content as final confirmed text using the "guaranteed funding for the first two years" language, AND SHALL contain no bracketed placeholder marker or to-be-confirmed text in that content.
 8. THE Recruitment_Announcement SHALL provide application instructions directing applicants to email Dr. Chelsie McWhorter at Chelsie.McWhorter@okstate.edu, and SHALL list the four required materials: a CV, unofficial transcripts, a brief (defined as one to two paragraph) statement of research interests, and preferred start semester.
 9. THE Recruitment_Announcement SHALL present the application email address (Chelsie.McWhorter@okstate.edu) as a mailto: hyperlink.
 10. WHEN a visitor activates the application email hyperlink, THE Recruitment_Announcement SHALL open the visitor's default email client with the recipient address (Chelsie.McWhorter@okstate.edu) pre-filled.
@@ -77,6 +82,11 @@ The recruitment call text has been supplied by the user. One detail — the full
 10. IF the fetched publication data contains zero publications, THEN THE Sync_Workflow SHALL open no Sync_Pull_Request and preserve the existing Publications_Page unchanged.
 11. THE Sync_Workflow SHALL NOT modify the default-branch Publications_Page directly, AND changes SHALL reach the default branch only through the maintainer merging the Sync_Pull_Request.
 12. WHEN the Sync_Workflow opens or updates a Sync_Pull_Request, THE Sync_Workflow SHALL rely on GitHub's standard pull-request notifications to inform the maintainer so that the maintainer reviews the diff before merging.
+13. WHEN the Generator_Script renders a .pub-authors value, THE Generator_Script SHALL apply Author_Emphasis by wrapping each whole-word, case-sensitive occurrence of the configured highlighted author surname in a `<strong>` element, AND SHALL apply that wrapping only after the author text has been HTML-escaped, so that the `<strong>` elements are the only raw tags in the rendered .pub-authors content.
+14. WHERE the configured highlighted author surname is an empty string, THE Generator_Script SHALL render the escaped author text with no Author_Emphasis applied.
+15. WHEN the Generator_Script renders a .pub-link element, THE Generator_Script SHALL emit the attributes href, class, target with the value `_blank`, rel with the value `noopener noreferrer`, and aria-label, in that fixed order, so that the rendered output remains byte-stable.
+16. WHEN the Generator_Script renders a .pub-link element, THE Generator_Script SHALL set the aria-label to the visible link label with any trailing right-arrow character (U+2192) and surrounding whitespace removed, followed by ", opens in a new tab", AND WHERE the visible link label is empty or consists only of that arrow, THE Generator_Script SHALL set the aria-label to "opens in a new tab" alone.
+17. WHEN the Generator_Script renders the regenerated Publications_Page, THE Generator_Script SHALL include every Curated_Publication exactly once, AND WHERE a Scholar-derived record duplicates a Curated_Publication by normalized title or by shared DOI, THE Generator_Script SHALL render the Curated_Publication wording and SHALL drop the Scholar-derived duplicate.
 
 ### Requirement 4: Sync Scheduling and Manual Trigger
 
@@ -103,3 +113,17 @@ The recruitment call text has been supplied by the user. One detail — the full
 5. IF the fetched publication dataset contains fewer entries than the configured minimum threshold (default 1 entry, adjustable via configuration), THEN THE Sync_Workflow SHALL treat the run as a failure and SHALL leave the Last_Good_Version unchanged.
 6. WHEN the Sync_Workflow requests publication data from the Scholar_Profile, THE Sync_Workflow SHALL retry the request up to 3 times before declaring a retrieval failure.
 7. IF a single request to the Scholar_Profile does not return a response within 30 seconds, THEN THE Sync_Workflow SHALL treat that request as failed.
+
+### Requirement 6: Site-Wide Outbound Link Behavior and Markup Conventions
+
+**User Story:** As a site visitor, I want links that leave the lab site to open in a new tab and every page to be valid, correctly encoded markup, so that I keep my place on the site and pages render consistently across browsers.
+
+#### Acceptance Criteria
+
+1. THE Site SHALL represent every literal ampersand in the HTML source of each page as the `&amp;` character entity, including ampersands appearing in URLs, in attribute values such as aria-label, and in visible text.
+2. THE Site SHALL NOT double-escape an ampersand that is already part of an existing character entity.
+3. WHERE a hyperlink on the Site is an External_Link, THE Site SHALL give that hyperlink a target attribute with the value `_blank` and a rel attribute with the value `noopener noreferrer`, so that tab-nabbing and referrer leakage are prevented.
+4. WHERE a hyperlink on the Site is an internal or relative path, a `mailto:` address, or a self-referential link to the geospatialcognitionlab.com domain, THE Site SHALL open that hyperlink in the same tab and SHALL NOT give it a target attribute with the value `_blank`.
+5. WHERE an External_Link already carries an aria-label, THE Site SHALL append ", opens in a new tab" to that aria-label so that the new-tab behavior is announced.
+6. THE presented text of the Site SHALL contain no em dash (U+2014) characters and no en dash (U+2013) characters.
+7. WHERE a Curated_Publication venue value contains an ampersand, THE curated data SHALL encode that ampersand as `&amp;`, because the Generator_Script emits the venue field verbatim as trusted HTML while HTML-escaping the authors and title fields.
