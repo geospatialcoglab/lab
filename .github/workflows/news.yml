@@ -1,0 +1,110 @@
+name: Generate news pages
+
+# Renders news.html and the index.html preview from content/news/, then commits
+# the result back to the PR branch so a reviewer sees the rendered pages.
+# Deploys nothing: merging to main triggers the existing static.yml Pages job.
+# Uses pull_request (not the _target variant), which would hand a write token to
+# PR-head code. Consequence: fork PRs get a read-only token and cannot be pushed.
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ["content/news/**"]
+  workflow_dispatch: {}
+
+concurrency:
+  group: news-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the branch under review
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No pip install: the generator is standard library only.
+      - name: Generate the news pages
+        run: python scripts/generate_news.py
+
+      - name: Detect whether the generated pages changed
+        id: diff
+        run: |
+          if git diff --quiet -- news.html index.html; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A fork PR cannot be pushed to, and a dispatch on the default branch
+      # must not be, since that would bypass the review gate.
+      - name: Classify the run
+        id: ctx
+        env:
+          EVENT: ${{ github.event_name }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          THIS_REPO: ${{ github.repository }}
+          REF_NAME: ${{ github.ref_name }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            echo "target=$HEAD_REF" >> "$GITHUB_OUTPUT"
+            if [ "$HEAD_REPO" = "$THIS_REPO" ]; then
+              echo "pushable=true" >> "$GITHUB_OUTPUT"
+              echo "reason=in-repo pull request branch" >> "$GITHUB_OUTPUT"
+            else
+              echo "pushable=false" >> "$GITHUB_OUTPUT"
+              echo "reason=a fork pull request cannot be pushed to" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "target=$REF_NAME" >> "$GITHUB_OUTPUT"
+            if [ "$REF_NAME" = "$DEFAULT_BRANCH" ]; then
+              echo "pushable=false" >> "$GITHUB_OUTPUT"
+              echo "reason=dispatched on the default branch, which would bypass review" >> "$GITHUB_OUTPUT"
+            else
+              echo "pushable=true" >> "$GITHUB_OUTPUT"
+              echo "reason=manual dispatch on a non-default branch" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Report that the pages are already up to date
+        if: steps.diff.outputs.changed == 'false'
+        run: echo "news.html and index.html already match content/news."
+
+      # Only the two generated pages are staged. The push fires a synchronize
+      # event, and that rerun finds no diff, so this does not loop.
+      - name: Commit the regenerated pages
+        if: steps.diff.outputs.changed == 'true' && steps.ctx.outputs.pushable == 'true'
+        env:
+          TARGET: ${{ steps.ctx.outputs.target }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news.html index.html
+          git commit -m "chore: regenerate news pages from content/news"
+          git push origin "HEAD:$TARGET"
+
+      - name: Explain why the pages could not be committed
+        if: steps.diff.outputs.changed == 'true' && steps.ctx.outputs.pushable == 'false'
+        env:
+          REASON: ${{ steps.ctx.outputs.reason }}
+        run: |
+          echo "The generated pages are out of date and $REASON."
+          echo "Run this locally and commit the two files:"
+          echo "    python scripts/generate_news.py"
+          echo "    git add news.html index.html"
+          echo "Failing the check so stale pages are not merged."
+          exit 1
