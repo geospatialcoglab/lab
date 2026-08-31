@@ -9,27 +9,97 @@ need to know to keep this site fresh.
 📰 ADDING NEWS POSTS
 ================================================================================
 
-1. Open: news.html
-2. Find the <div class="news-list"> section
-3. Copy this template and paste it at the TOP (newest first):
+You do not edit HTML for this anymore, and you do not update two places.
 
-   <article class="news-article">
-       <span class="news-date">Month Year</span>
-       <h2>Your Headline Here</h2>
-       <p>Your news content here. Keep it concise but informative!</p>
-   </article>
+One news post = one Markdown file in content/news/. A generator reads those
+files and writes BOTH the article list on news.html and the Recent News
+preview on index.html. Neither page is edited by hand.
 
-4. To add a photo to a news post:
+THE FRONT MATTER (the block at the top, between two lines of ---)
 
-   <article class="news-article">
-       <span class="news-date">Month Year</span>
-       <h2>Conference Presentation</h2>
-       <img src="images/your-photo.jpg" alt="Description of photo" class="news-image">
-       <p>Your news content here.</p>
-   </article>
+  REQUIRED
+    title      The full headline, shown on the News page.
+    date       Month precision only, as YYYY-MM. For example 2026-08.
+    teaser     One or two sentences. This is what shows on the homepage.
 
-5. Don't forget to update the "Recent News" section on index.html too!
-   (Just the 2 most recent items)
+  OPTIONAL
+    short_title  A shorter headline for the homepage, for when the real
+                 title is long. The News page still shows the full title.
+    image        One photo, placed at the top of the post.
+    image_alt    Required whenever image is used. Describes the photo for
+                 screen readers.
+
+A front matter line is "key: value" split on the FIRST colon, so a colon
+inside your title is fine.
+
+WHAT YOU CAN WRITE IN THE BODY
+
+  Paragraphs      Any block of text with a blank line above and below.
+  Subheading      A line starting with two hash marks and a space.
+  Bulleted list   Consecutive lines each starting with a hyphen and a space.
+  Link            [the label](where it goes)
+  Bold            Two asterisks on each side of the text.
+  Italic          One asterisk on each side of the text.
+
+Links to outside sites automatically open in a new tab. Links inside this
+site, and email links, do not. You do not have to think about it.
+
+WHAT IS NOT ACCEPTED
+
+Numbered lists, nested lists, tables, block quotes, backtick code, image
+syntax in the body, raw HTML tags, and any heading other than the two hash
+mark form. A lone asterisk in your prose is also rejected, because the
+generator reads it as an unfinished italic marker.
+
+None of these silently break the page. The generator stops and tells you the
+file and the line number.
+
+HOW TO ADD A POST, START TO FINISH
+
+1. Make a branch. Never commit straight to main.
+2. Copy content/news/_template.md to content/news/your-post-name.md
+     Use lowercase letters, numbers, and hyphens only in the file name.
+     Convention: start with the year and month, like 2026-09-aag-talk.md
+3. Edit the front matter and replace the body text.
+4. Commit and open a pull request against main.
+5. An automated check runs and adds a commit with the regenerated pages, so
+     the reviewer sees exactly how it will look.
+6. Ask for review. Merging is what publishes it.
+
+You need collaborator access to the repository. You do NOT need any password,
+login, or credential belonging to Dr. McWhorter.
+
+TO PREVIEW IT YOURSELF (optional)
+
+  python scripts/generate_news.py           regenerate both pages
+  python scripts/generate_news.py --check   check without changing anything
+
+Nothing to install and no internet needed, just Python 3.
+
+⚠️  THE ONE THAT WILL TRIP YOU UP: DASHES
+
+The generator REJECTS the em dash and the en dash. Microsoft Word and Google
+Docs silently turn a typed hyphen into an em dash, so a draft written in
+either almost certainly has some, and you cannot really see them.
+
+If a post is rejected for this, the error quotes the exact line. Replace the
+character with a comma, a colon, or the word "to" for a range like 2024 to
+2026.
+
+To stop it happening:
+  Word         File > Options > Proofing > AutoCorrect Options >
+               AutoFormat As You Type, and clear the hyphens to dash option.
+  Google Docs  Tools > Preferences, and clear Automatic substitution.
+  Either one   Paste as plain text when moving a draft into the file.
+
+THE HOMEPAGE PREVIEW IS AUTOMATIC
+
+The old version of this guide told you to also copy the two newest posts into
+the Recent News section of index.html by hand. Do not do that anymore. It is
+generated. Editing it by hand will just be overwritten on the next run.
+
+How many posts it shows is set by PREVIEW_COUNT near the top of
+scripts/generate_news.py. Change that one number and the homepage follows.
 
 ================================================================================
 📸 ADDING PHOTOS
@@ -214,6 +284,15 @@ your-site/
 ├── styles.css          ← All the styling
 ├── script.js           ← Mobile menu functionality
 ├── sitemap.xml         ← For Google
+├── content/
+│   └── news/           ← ONE MARKDOWN FILE PER NEWS POST
+│       ├── _template.md    ← copy this to start a new post
+│       └── (your posts)
+├── scripts/
+│   ├── generate_news.py            ← builds news.html + homepage preview
+│   ├── generate_publications.py    ← builds publications.html
+│   ├── curated_publications.json   ← hand-entered publications
+│   └── site_html.py                ← shared helpers for both
 ├── images/
 │   ├── logo-horizontal.png
 │   ├── logo-square.png
