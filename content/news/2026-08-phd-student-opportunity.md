@@ -11,7 +11,7 @@ We are actively recruiting a funded, in-residence PhD student to join the Geospa
 
 The student will pursue a PhD in Fire & Emergency Management Administration (FEMP) while conducting geographic and spatial-cognition research through the Geospatial Cognition Lab. This is not a traditional Geography PhD, but may be a strong fit for students interested in applying spatial cognition, behavioral geography, human factors, or related approaches to emergency response environments. Current research includes firefighter navigation and spatial thinking, disorientation, and spatial decision making, using field-based data collection, surveys, and spatial analysis.
 
-FEMP is a unique, multidisciplinary program: a small collaborative group of in-residence graduate students in Stillwater, alongside a network of over 130 remote MS and PhD students from across North America and abroad. All FEMP courses are taught in a live, hybrid format (in-person and Zoom), blending academic mentorship with direct networking alongside practitioner-peers.
+FEMP is a unique, multidisciplinary program: we have a small collaborative group of in-residence graduate students in Stillwater, alongside a network of over 130 remote MS and PhD students from across North America and abroad. All FEMP courses are taught in a live, hybrid format (in-person and Zoom), blending academic mentorship with direct networking alongside your practitioner-peers.
 
 ## Qualifications & Preferred Skills
 
@@ -25,10 +25,8 @@ Applicants with backgrounds in geography, emergency management, disaster science
 
 ## Funding
 
-This position comes with guaranteed funding for the first two years. Additional support is anticipated through teaching assistantships across the Program and College, as well as externally funded research projects.
+This position comes with guaranteed funding for the first two years. Additional support is available through teaching assistantships across the Program and College, as well as externally funded research projects.
 
 ## How to Apply
 
-Interested students should review the Geospatial Cognition Lab ([geospatialcognitionlab.com](https://geospatialcognitionlab.com)) and FEMP program ([femp.okstate.edu](https://femp.okstate.edu)) websites to see if our work and program structure align with their academic goals. To apply, please email Dr. Chelsie McWhorter at [Chelsie.McWhorter@okstate.edu](mailto:Chelsie.McWhorter@okstate.edu) with your CV, unofficial transcripts, a brief statement regarding your research interests, and preferred start semester (Spring 2027 or Fall 2027). Applications will be reviewed on a rolling basis until the position is filled.
-
-**For priority consideration for a Spring 2027 start, materials should be received by October 1, 2026.**
+Interested students should review the Lab ([geospatialcognitionlab.com](https://geospatialcognitionlab.com)) and FEMP program ([femp.okstate.edu](https://femp.okstate.edu)) websites to see if our work and program structure align with their academic goals. Please be prepared to provide your master's information and a 300 to 500 word statement addressing your research interests, relevant experience, and why the Geospatial Cognition Lab and interdisciplinary FEMP PhD are a good fit for your goals. Applications will be reviewed on a rolling basis until the position is filled. To express interest, please complete [this short interest form](https://okstate.az1.qualtrics.com/jfe/form/SV_eVSRmSGW7ihgaa2).
