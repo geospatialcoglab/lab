@@ -672,7 +672,7 @@ def render_news(posts) -> str:
     articles: list[str] = []
     for post in posts:
         lines = [
-            f'{i1}<article class="news-article">',
+            f'{i1}<article class="news-article" id="{escape_attr(post.slug)}">',
             f'{i2}<span class="news-date">'
             f"{escape_text_content(post.display_month)}</span>",
             f"{i2}<h2>{render_inline(post.title)}</h2>",
@@ -723,7 +723,8 @@ def render_preview(posts, preview_count: int = PREVIEW_COUNT) -> str:
             f'{i1}<article class="news-item">',
             f'{i2}<span class="news-date">'
             f"{escape_text_content(post.display_month)}</span>",
-            f"{i2}<h3>{render_inline(post.headline)}</h3>",
+            f'{i2}<h3><a href="news.html#{escape_attr(post.slug)}">'
+            f'{render_inline(post.headline)}</a></h3>',
             f"{i2}<p>{render_inline(post.teaser)}</p>",
             f"{i1}</article>",
         ]
