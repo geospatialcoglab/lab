@@ -1,5 +1,13 @@
 [
     {
+        "authors": "McWhorter, C., Baylis, K., & Hegarty, M.",
+        "title": "Capturing Environmental Scale Spatial Cognition in Applied Settings: A Field Based Pilot with Firefighters (Short Paper).",
+        "venue": "In <em>17th International Conference on Spatial Information Theory (COSIT 2026)</em>, LIPIcs Vol. 393 (pp. 23:1-23:7). Schloss Dagstuhl-Leibniz-Zentrum für Informatik.",
+        "year": 2026,
+        "link": "https://doi.org/10.4230/LIPIcs.COSIT.2026.23",
+        "link_label": "DOI →"
+    },
+    {
         "authors": "McWhorter, C., Hegarty, M., Baylis, K., & Montello, D. R.",
         "title": "Mapping the response: A survey of municipal firefighter navigation training and practices in the United States.",
         "venue": "<em>International Journal of Disaster Risk Reduction</em>, 123, 105446.",
