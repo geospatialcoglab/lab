@@ -5,7 +5,7 @@ date: 2026-08
 teaser: The lab is recruiting an in-residence PhD student for a Spring or Fall 2027 start, with guaranteed funding for the first two years. Read the full call on the [News page](news.html).
 ---
 
-*Updated October 5, 2026.*
+*Updated October 7, 2026.*
 
 I am recruiting an in-residence PhD student at Oklahoma State University interested in human behavior, navigation, and decision making in disasters and emergency response environments, beginning Spring or Fall 2027. The student will join the Geospatial Cognition Lab while pursuing a PhD in Fire & Emergency Management Administration (FEMP).
 
@@ -37,4 +37,4 @@ The position includes guaranteed funding for the first two years, with additiona
 
 Review the Geospatial Cognition Lab ([geospatialcognitionlab.com](https://geospatialcognitionlab.com)) and FEMP program ([femp.okstate.edu](https://femp.okstate.edu)). Please be prepared to provide your master's information and a 300 to 500 word statement describing your research interests, relevant experience, and why developing expertise in spatial cognition, navigation, or decision making specifically through the interdisciplinary nature of the Fire & Emergency Management Administration Program fits your goals. Please describe your own interests rather than restating language from this announcement. Applications will be reviewed on a rolling basis until the position is filled. To express interest, complete [this short interest form](https://okstate.az1.qualtrics.com/jfe/form/SV_eVSRmSGW7ihgaa2).
 
-**For priority consideration for a Spring 2027 start, materials should be received by October 31, 2026.**
+**For priority consideration, materials should be received by October 30, 2026 for a Spring 2027 start.** There is more flexibility for a Fall 2027 start, but interested applicants are encouraged to submit their materials as early as possible.
